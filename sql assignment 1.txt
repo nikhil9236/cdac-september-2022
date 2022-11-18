@@ -1,0 +1,760 @@
+mysql> create database Assignment1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment1        |
+| information_schema |
+| moviebooking       |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use assignment1
+Database changed
+mysql> create table SEMP (
+    -> EMPNO char(4),
+    -> EMPNAME char(20),
+    -> BASIC float,
+    -> DEPTNO char(2),
+    -> DEPTHEAD char(4)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_assignment1 |
++-----------------------+
+| semp                  |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> desc semp;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| EMPNO    | char(4)  | YES  |     | NULL    |       |
+| EMPNAME  | char(20) | YES  |     | NULL    |       |
+| BASIC    | float    | YES  |     | NULL    |       |
+| DEPTNO   | char(2)  | YES  |     | NULL    |       |
+| DEPTHEAD | char(4)  | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table SDEPT (
+    -> DEPTNO char(2),
+    -> DEPTNAME char(15)
+    -> , );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table SDEPT (
+    -> DEPTNO char(2),
+    -> DEPTNAME char(15),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table SDEPT (
+    -> DEPTNO char(2),
+    -> DEPTNAME char(15)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc SDEPT;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| DEPTNO   | char(2)  | YES  |     | NULL    |       |
+| DEPTNAME | char(15) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into SDEPT values ('10','Development'),('20','Training');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from SDEPT;
++--------+-------------+
+| DEPTNO | DEPTNAME    |
++--------+-------------+
+| 10     | Development |
+| 20     | Training    |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into SEMP values ('0001','Sunil',6000,'10'),
+    -> ('0002','Hiren',8000,'20'),
+    -> ('0003','ALI',4000,'10','0001'),
+    -> ('0004', "George', 6000,'0002');
+    "> ^C
+mysql> insert into SEMP values ('0001','Sunil',6000,'10'),
+    -> ('0002','Hiren',8000,'20'),
+    -> ('0003','ALI',4000,'10','0001'),
+    -> ('0004', 'George', 6000,'0002');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> desc SEmp;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| EMPNO    | char(4)  | YES  |     | NULL    |       |
+| EMPNAME  | char(20) | YES  |     | NULL    |       |
+| BASIC    | float    | YES  |     | NULL    |       |
+| DEPTNO   | char(2)  | YES  |     | NULL    |       |
+| DEPTHEAD | char(4)  | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into SEMP values ('0001','Sunil',6000,'10',NULL),
+    -> ('0002','Hiren',8000,'20',NULL),
+    -> ('0003','ALI',4000,'10','0001'),
+    -> ('0004', 'George', 6000,'0002');
+ERROR 1136 (21S01): Column count doesn't match value count at row 4
+mysql> insert into SEMP values ('0001','Sunil',6000,'10'),
+    -> ('0002','Hiren',8000,'20'),
+    -> ('0003','ALI',4000,'10','0001'),
+    -> ('0004', 'George', 6000,NULL,'0002');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into SEMP values ('0001','Sunil',6000,'10',NULL),
+    -> ('0002','Hiren',8000,'20',NULL),
+    -> ('0003','ALI',4000,'10','0001'),
+    -> ('0004', 'George', 6000,NULL,'0002');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from semp;
++-------+---------+-------+--------+----------+
+| EMPNO | EMPNAME | BASIC | DEPTNO | DEPTHEAD |
++-------+---------+-------+--------+----------+
+| 0001  | Sunil   |  6000 | 10     | NULL     |
+| 0002  | Hiren   |  8000 | 20     | NULL     |
+| 0003  | ALI     |  4000 | 10     | 0001     |
+| 0004  | George  |  6000 | NULL   | 0002     |
++-------+---------+-------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> create table supplier (
+    -> sr int(10),
+    -> Sname varchar(20),
+    -> Status enum('0','1'),
+    -> City varchar(20));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> desc supplier;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sr     | int           | YES  |     | NULL    |       |
+| Sname  | varchar(20)   | YES  |     | NULL    |       |
+| Status | enum('0','1') | YES  |     | NULL    |       |
+| City   | varchar(20)   | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table project (
+    -> ^C
+mysql> create table project (
+    -> sr int(2)^C
+mysql> alter table supplier modify column sr varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc supplier;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sr     | varchar(10)   | YES  |     | NULL    |       |
+| Sname  | varchar(20)   | YES  |     | NULL    |       |
+| Status | enum('0','1') | YES  |     | NULL    |       |
+| City   | varchar(20)   | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table parts (
+    -> sr varchar(10),
+    -> Pname 'varchar(20),
+    '> ^C
+mysql> create table parts (
+    -> sr varchar(10),
+    -> Pname varchar(20),
+    -> color varchar(10),
+    -> Weight int,
+    -> city varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc parts;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sr     | varchar(10) | YES  |     | NULL    |       |
+| Pname  | varchar(20) | YES  |     | NULL    |       |
+| color  | varchar(10) | YES  |     | NULL    |       |
+| Weight | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table projects (
+    -> sr varchar(10),
+    -> Jname varchar(20),
+    -> city varchar(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table SPP (
+    -> srS varchar(10),
+    -> srPA varchar(10),
+    -> srPR varchar(10),
+    -> Qty int ));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 5
+mysql> create table SPP (
+    -> srS varchar(10),
+    -> srPA varchar(10),
+    -> srPR varchar(10),
+    -> Qty int(100) ));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 5
+mysql> create table SPP (
+    -> srS varchar(10),
+    -> srPA varchar(10),
+    -> srPR varchar(10),
+    -> Qty int(100) );
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> desc spp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| srS   | varchar(10) | YES  |     | NULL    |       |
+| srPA  | varchar(10) | YES  |     | NULL    |       |
+| srPR  | varchar(10) | YES  |     | NULL    |       |
+| Qty   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc supplierl
+    -> ;
+ERROR 1146 (42S02): Table 'assignment1.supplierl' doesn't exist
+mysql> desc supplier;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sr     | varchar(10)   | YES  |     | NULL    |       |
+| Sname  | varchar(20)   | YES  |     | NULL    |       |
+| Status | enum('0','1') | YES  |     | NULL    |       |
+| City   | varchar(20)   | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table supplier column primary key(sr);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column primary key(sr)' at line 1
+mysql> alter table supplier add contraint primary key(sr);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key(sr)' at line 1
+mysql> alter table supplier add constraint primary key(sr);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc supplier;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sr     | varchar(10)   | NO   | PRI | NULL    |       |
+| Sname  | varchar(20)   | YES  |     | NULL    |       |
+| Status | enum('0','1') | YES  |     | NULL    |       |
+| City   | varchar(20)   | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc parts;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sr     | varchar(10) | YES  |     | NULL    |       |
+| Pname  | varchar(20) | YES  |     | NULL    |       |
+| color  | varchar(10) | YES  |     | NULL    |       |
+| Weight | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table parts add constraint primary key(sr);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc projects;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sr    | varchar(10) | YES  |     | NULL    |       |
+| Jname | varchar(20) | YES  |     | NULL    |       |
+| city  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table projects add constraint primary key(sr);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc projects;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sr    | varchar(10) | NO   | PRI | NULL    |       |
+| Jname | varchar(20) | YES  |     | NULL    |       |
+| city  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_assignment1 |
++-----------------------+
+| parts                 |
+| projects              |
+| sdept                 |
+| semp                  |
+| spp                   |
+| supplier              |
++-----------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from parts;
+Empty set (0.00 sec)
+
+mysql> desc parts;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sr     | varchar(10) | NO   | PRI | NULL    |       |
+| Pname  | varchar(20) | YES  |     | NULL    |       |
+| color  | varchar(10) | YES  |     | NULL    |       |
+| Weight | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc supplier;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sr     | varchar(10)   | NO   | PRI | NULL    |       |
+| Sname  | varchar(20)   | YES  |     | NULL    |       |
+| Status | enum('0','1') | YES  |     | NULL    |       |
+| City   | varchar(20)   | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into supplier (
+    -> 'S1','SK contruction',0,'Thane'),
+    -> ^C
+mysql> insert into supplier
+    -> ('S1','SK contruction',0,'Thane'),
+    -> ('S2','KK contruction',1,'Pune'),
+    -> ('S3','AK contruction',1,'Nashik'),
+    -> ('S4','EK contruction',1,'Nagpur'),
+    -> ('S5','WK contruction',1,'Jagaon'),
+    -> ('S6','GK contruction',0,'Kolhapur');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''S1','SK contruction',0,'Thane'),
+('S2','KK contruction',1,'Pune'),
+('S3','AK co' at line 2
+mysql> insert into supplier
+    -> ('S1','SK contruction','0','Thane'),
+    -> ('S2','KK contruction','1','Pune'),
+    -> ('S3','AK contruction','1','Nashik'),
+    -> ('S4','EK contruction','1','Nagpur'),
+    -> ('S5','WK contruction','1','Jagaon'),
+    -> ('S6','GK contruction','0','Kolhapur');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''S1','SK contruction','0','Thane'),
+('S2','KK contruction','1','Pune'),
+('S3','A' at line 2
+mysql> insert into supplier values
+    -> ('S1','SK contruction','0','Thane'),
+    -> ('S2','KK contruction','1','Pune'),
+    -> ('S3','AK contruction','1','Nashik'),
+    -> ('S4','EK contruction','1','Nagpur'),
+    -> ('S5','WK contruction','1','Jagaon'),
+    -> ('S6','GK contruction','0','Kolhapur');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from supplier;
++----+----------------+--------+----------+
+| sr | Sname          | Status | City     |
++----+----------------+--------+----------+
+| S1 | SK contruction | 0      | Thane    |
+| S2 | KK contruction | 1      | Pune     |
+| S3 | AK contruction | 1      | Nashik   |
+| S4 | EK contruction | 1      | Nagpur   |
+| S5 | WK contruction | 1      | Jagaon   |
+| S6 | GK contruction | 0      | Kolhapur |
++----+----------------+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> desc parts;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sr     | varchar(10) | NO   | PRI | NULL    |       |
+| Pname  | varchar(20) | YES  |     | NULL    |       |
+| color  | varchar(10) | YES  |     | NULL    |       |
+| Weight | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> inser into parts values
+    -> ('P1','ScrewDriver','Red','20','Thane'),
+    -> ('P2','Philips screw','blue','40','Jagaon'),
+    -> ('P3','LED tublight','White','5','Nagpur'),
+    -> ('P4','Duct tape','Black','15','Kolhapur'),
+    -> ('P5','Wire','Blue','200','Thane');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into parts values
+('P1','ScrewDriver','Red','20','Thane'),
+('P2','Philips' at line 1
+mysql> inser into parts values
+    -> ('P1','ScrewDriver','Red',20,'Thane'),
+    -> ('P2','Philips screw','blue',40,'Jagaon'),
+    -> ('P3','LED tublight','White',5,'Nagpur'),
+    -> ('P4','Duct tape','Black',15,'Kolhapur'),
+    -> ('P5','Wire','Blue',200,'Thane');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into parts values
+('P1','ScrewDriver','Red',20,'Thane'),
+('P2','Philips s' at line 1
+mysql> insert into parts values
+    -> ('P1','ScrewDriver','Red',20,'Thane'),
+    -> ('P2','Philips screw','blue',40,'Jagaon'),
+    -> ('P3','LED tublight','White',5,'Nagpur'),
+    -> ('P4','Duct tape','Black',15,'Kolhapur'),
+    -> ('P5','Wire','Blue',200,'Thane');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from parts;
++----+---------------+-------+--------+----------+
+| sr | Pname         | color | Weight | city     |
++----+---------------+-------+--------+----------+
+| P1 | ScrewDriver   | Red   |     20 | Thane    |
+| P2 | Philips screw | blue  |     40 | Jagaon   |
+| P3 | LED tublight  | White |      5 | Nagpur   |
+| P4 | Duct tape     | Black |     15 | Kolhapur |
+| P5 | Wire          | Blue  |    200 | Thane    |
++----+---------------+-------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> desc supplier;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| sr     | varchar(10)   | NO   | PRI | NULL    |       |
+| Sname  | varchar(20)   | YES  |     | NULL    |       |
+| Status | enum('0','1') | YES  |     | NULL    |       |
+| City   | varchar(20)   | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc project;
+ERROR 1146 (42S02): Table 'assignment1.project' doesn't exist
+mysql> desc projects;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sr    | varchar(10) | NO   | PRI | NULL    |       |
+| Jname | varchar(20) | YES  |     | NULL    |       |
+| city  | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into projects values
+    -> ('J1','Wall building','Thane'),
+    -> ('J2','Wall breaking','Pune'),
+    -> ('J3','Swimming pool fixing','Kolhapur'),
+    -> ('J4','Construction of house','Nagpur'),
+    -> ('J5','Bridge building','Thane');
+ERROR 1406 (22001): Data too long for column 'Jname' at row 4
+mysql>
+mysql>
+mysql> insert into projects values
+    -> ('J1','Wall building','Thane'),
+    -> ('J2','Wall breaking','Pune'),
+    -> ('J3','pool fixing','Kolhapur'),
+    -> ('J4','Construction of house','Nagpur'),
+    -> ('J5','Bridge building','Thane');
+ERROR 1406 (22001): Data too long for column 'Jname' at row 4
+mysql>
+mysql>
+mysql> alter table project modify column Jname varchar(50);
+ERROR 1146 (42S02): Table 'assignment1.project' doesn't exist
+mysql> alter table projects modify column Jname varchar(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into projects values
+    -> ('J1','Wall building','Thane'),
+    -> ('J2','Wall breaking','Pune'),
+    -> ('J3','pool fixing','Kolhapur'),
+    -> ('J4','Construction of house','Nagpur'),
+    -> ('J5','Bridge building','Thane');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> select * from projects;
++----+-----------------------+----------+
+| sr | Jname                 | city     |
++----+-----------------------+----------+
+| J1 | Wall building         | Thane    |
+| J2 | Wall breaking         | Pune     |
+| J3 | pool fixing           | Kolhapur |
+| J4 | Construction of house | Nagpur   |
+| J5 | Bridge building       | Thane    |
++----+-----------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> desc spjl
+    -> ^C
+mysql> desc spj;
+ERROR 1146 (42S02): Table 'assignment1.spj' doesn't exist
+mysql> desc spp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| srS   | varchar(10) | YES  |     | NULL    |       |
+| srPA  | varchar(10) | YES  |     | NULL    |       |
+| srPR  | varchar(10) | YES  |     | NULL    |       |
+| Qty   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from supplier;
++----+----------------+--------+----------+
+| sr | Sname          | Status | City     |
++----+----------------+--------+----------+
+| S1 | SK contruction | 0      | Thane    |
+| S2 | KK contruction | 1      | Pune     |
+| S3 | AK contruction | 1      | Nashik   |
+| S4 | EK contruction | 1      | Nagpur   |
+| S5 | WK contruction | 1      | Jagaon   |
+| S6 | GK contruction | 0      | Kolhapur |
++----+----------------+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select sr,Sname from supplier;
++----+----------------+
+| sr | Sname          |
++----+----------------+
+| S1 | SK contruction |
+| S2 | KK contruction |
+| S3 | AK contruction |
+| S4 | EK contruction |
+| S5 | WK contruction |
+| S6 | GK contruction |
++----+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from parts;
++----+---------------+-------+--------+----------+
+| sr | Pname         | color | Weight | city     |
++----+---------------+-------+--------+----------+
+| P1 | ScrewDriver   | Red   |     20 | Thane    |
+| P2 | Philips screw | blue  |     40 | Jagaon   |
+| P3 | LED tublight  | White |      5 | Nagpur   |
+| P4 | Duct tape     | Black |     15 | Kolhapur |
+| P5 | Wire          | Blue  |    200 | Thane    |
++----+---------------+-------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select pname, color from parts where city = 'Thane';
++-------------+-------+
+| pname       | color |
++-------------+-------+
+| ScrewDriver | Red   |
+| Wire        | Blue  |
++-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select sname from supplier where city = 'Thane';
++----------------+
+| sname          |
++----------------+
+| SK contruction |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select sname from supplier where city = 'Thane' and city = 'Kolhapur';
+Empty set (0.00 sec)
+
+mysql> select sname from supplier where city = 'Thane' or city = 'Kolhapur';
++----------------+
+| sname          |
++----------------+
+| SK contruction |
+| GK contruction |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> select sname,city from supplier where city = 'Thane' or city = 'Kolhapur';
++----------------+----------+
+| sname          | city     |
++----------------+----------+
+| SK contruction | Thane    |
+| GK contruction | Kolhapur |
++----------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from projects;
++----+-----------------------+----------+
+| sr | Jname                 | city     |
++----+-----------------------+----------+
+| J1 | Wall building         | Thane    |
+| J2 | Wall breaking         | Pune     |
+| J3 | pool fixing           | Kolhapur |
+| J4 | Construction of house | Nagpur   |
+| J5 | Bridge building       | Thane    |
++----+-----------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select Jname, city from projects where city = 'Thane';
++-----------------+-------+
+| Jname           | city  |
++-----------------+-------+
+| Wall building   | Thane |
+| Bridge building | Thane |
++-----------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select sr,Jname, city from projects where city = 'Thane';
++----+-----------------+-------+
+| sr | Jname           | city  |
++----+-----------------+-------+
+| J1 | Wall building   | Thane |
+| J5 | Bridge building | Thane |
++----+-----------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from parts;
++----+---------------+-------+--------+----------+
+| sr | Pname         | color | Weight | city     |
++----+---------------+-------+--------+----------+
+| P1 | ScrewDriver   | Red   |     20 | Thane    |
+| P2 | Philips screw | blue  |     40 | Jagaon   |
+| P3 | LED tublight  | White |      5 | Nagpur   |
+| P4 | Duct tape     | Black |     15 | Kolhapur |
+| P5 | Wire          | Blue  |    200 | Thane    |
++----+---------------+-------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select pname from parts where weight In(20,40);
++---------------+
+| pname         |
++---------------+
+| ScrewDriver   |
+| Philips screw |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> select pname from parts where weight In(15,40);
++---------------+
+| pname         |
++---------------+
+| Philips screw |
+| Duct tape     |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> select pname from parts where weight > 15;
++---------------+
+| pname         |
++---------------+
+| ScrewDriver   |
+| Philips screw |
+| Wire          |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> select pname,weigth from parts where weight > 15;
+ERROR 1054 (42S22): Unknown column 'weigth' in 'field list'
+mysql> select pname,weight from parts where weight > 15;
++---------------+--------+
+| pname         | weight |
++---------------+--------+
+| ScrewDriver   |     20 |
+| Philips screw |     40 |
+| Wire          |    200 |
++---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select pname,weight from parts where weight between 15 and 40;
++---------------+--------+
+| pname         | weight |
++---------------+--------+
+| ScrewDriver   |     20 |
+| Philips screw |     40 |
+| Duct tape     |     15 |
++---------------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select pname,weight from parts where weight between 15 and 40 order by weight;
++---------------+--------+
+| pname         | weight |
++---------------+--------+
+| Duct tape     |     15 |
+| ScrewDriver   |     20 |
+| Philips screw |     40 |
++---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select pname,weight from parts where weight between 15 and 40 order by weight desc;
++---------------+--------+
+| pname         | weight |
++---------------+--------+
+| Philips screw |     40 |
+| ScrewDriver   |     20 |
+| Duct tape     |     15 |
++---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select sname from supplier where NOT city = 'Thane';
++----------------+
+| sname          |
++----------------+
+| KK contruction |
+| AK contruction |
+| EK contruction |
+| WK contruction |
+| GK contruction |
++----------------+
+5 rows in set (0.00 sec)
+
+mysql> select sname,city from supplier where NOT city = 'Thane';
++----------------+----------+
+| sname          | city     |
++----------------+----------+
+| KK contruction | Pune     |
+| AK contruction | Nashik   |
+| EK contruction | Nagpur   |
+| WK contruction | Jagaon   |
+| GK contruction | Kolhapur |
++----------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product;
+ERROR 1146 (42S02): Table 'assignment1.product' doesn't exist
+mysql> select * from products;
+ERROR 1146 (42S02): Table 'assignment1.products' doesn't exist
+mysql> select * from parts;
++----+---------------+-------+--------+----------+
+| sr | Pname         | color | Weight | city     |
++----+---------------+-------+--------+----------+
+| P1 | ScrewDriver   | Red   |     20 | Thane    |
+| P2 | Philips screw | blue  |     40 | Jagaon   |
+| P3 | LED tublight  | White |      5 | Nagpur   |
+| P4 | Duct tape     | Black |     15 | Kolhapur |
+| P5 | Wire          | Blue  |    200 | Thane    |
++----+---------------+-------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from parts where weight = weight*1000;
+Empty set (0.01 sec)
+
+mysql>
